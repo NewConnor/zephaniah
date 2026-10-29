@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <!-- 모바일 화면 비율 자동 맞춰주는 Viewport 태그 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>하남고등학교 코딩랩 (VAR CODINGLAB)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="logo-container">
+      <img src="codinglab_logo.png.png" alt="코딩랩 로고" class="logo-img">
+      <span class="logo-x">X</span>
+      <img src="hanam_logo.jpg.jpg" alt="하남고 로고" class="logo-img">
+      <span class="brand-title">VAR CODINGLAB</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active">홈</a></li>
+        <li><a href="#" onclick="openCommunityModal(); return false;">커뮤니티</a></li>
+      </ul>
+    </nav>
+    <div class="header-btn-container" id="authBtnContainer">
+      <button class="btn-secondary" onclick="openAuthModal('login')">로그인 / 회원가입</button>
+      <a href="https://forms.gle/bCVMY32vRqVYHYAZ7" target="_blank" class="btn-primary">지원하기</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="collab-banner">
+      <div class="collab-logo-box">
+        <img src="codinglab_logo.png.png" alt="코딩랩 로고">
+      </div>
+      <div class="collab-x">X</div>
+      <div class="collab-logo-box">
+        <img src="hanam_logo.jpg.jpg" alt="하남고 로고">
+      </div>
+    </div>
+
+    <h1>하남고등학교 코딩랩</h1>
+    <p>상상을 코드로 구현하는 하남고 최고의 소프트웨어 & 알고리즘 연구 동아리입니다.</p>
+
+    <!-- 타원 버튼 5개 -->
+    <div class="sketch-buttons-container">
+      <button class="oval-btn" onclick="selectCategory('동아리 소개')">동아리 소개</button>
+      <button class="oval-btn" onclick="selectCategory('주요 프로젝트')">주요 프로젝트</button>
+      <button class="oval-btn" onclick="selectCategory('부원 모집')">부원 모집</button>
+      <button class="oval-btn" onclick="selectCategory('활동 갤러리')">활동 갤러리</button>
+      <button class="oval-btn" onclick="selectCategory('이벤트/공지')">이벤트/공지</button>
+    </div>
+  </section>
+
+  <!-- 세부 내용 변환 패널 -->
+  <section class="preview-container" id="previewContainer">
+    <div class="interactive-panel">
+      <div class="panel-sidebar">
+        <h3 id="sidebarTitle">동아리 부서 안내</h3>
+        <ul class="club-list" id="clubList">
+          <li class="club-item active" onclick="updateDetail('인공지능 부서', 'AI 및 머신러닝 탐구', '인공지능의 기본 원리와 기술을 공부하고, 직접 AI 관련 프로그램을 만들어보는 부서입니다. 자연어 처리, 머신러닝 등 AI와 관련된 내용을 탐구하고 프로젝트에 적용합니다.', ['AI', 'Python', 'MachineLearning'], this)">인공지능 부서</li>
+          <li class="club-item" onclick="updateDetail('피지컬AI 임베디드 부서', '하드웨어 & 소프트웨어 융합', '아두이노를 활용해 센서와 전자 부품을 연결하고 실제로 작동하는 장치를 제작하는 부서입니다. 아이디어를 회로와 코드로 구현하면서 하드웨어와 소프트웨어를 함께 경험합니다.', ['Arduino', 'IoT', 'Hardware'], this)">피지컬AI 임베디드 부서</li>
+          <li class="club-item" onclick="updateDetail('게임 제작 부서', '웹 기반 인터랙티브 게임 개발', 'HTML, CSS, JavaScript 등의 프로그래밍을 활용해 직접 게임을 제작하는 부서입니다. 게임의 규칙과 화면을 설계하고 코딩을 통해 실제로 플레이할 수 있는 형태로 구현합니다.', ['Game', 'JavaScript', 'HTML5'], this)">게임 제작 부서</li>
+          <li class="club-item" onclick="updateDetail('시큐어 코딩 부서', '보안 프로그래밍', '프로그램에서 발생할 수 있는 보안 취약점을 이해하고, 안전한 코드를 작성하는 방법을 배우며 보안을 고려한 프로그램을 제작합니다.', ['Security', 'Programming'], this)">시큐어 코딩 부서</li>
+        </ul>
+      </div>
+      <div class="panel-content">
+        <div>
+          <div class="content-header">
+            <h2 id="clubTitle">인공지능 부서</h2>
+            <span id="clubSub" style="color:#64748b; font-size: 0.85rem;">AI 및 머신러닝 탐구</span>
+          </div>
+          <p id="clubDesc" style="color: #334155; font-size: 0.9rem; margin-bottom: 16px;">
+            인공지능의 기본 원리와 기술을 공부하고, 직접 AI 관련 프로그램을 만들어보는 부서입니다. 자연어 처리, 머신러닝 등 AI와 관련된 내용을 탐구하고 프로젝트에 적용합니다.
+          </p>
+        </div>
+        <div id="clubTags">
+          <span class="tag">AI</span>
+          <span class="tag">Python</span>
+          <span class="tag">MachineLearning</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 로그인 / 회원가입 / 비밀번호 재설정 모달 -->
+  <div class="comm-overlay" id="authModalOverlay" onclick="closeAuthModal(event)">
+    <div class="auth-window">
+      <div class="auth-header">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tabLogin" onclick="switchAuthTab('login')">로그인</button>
+          <button class="auth-tab-btn" id="tabRegister" onclick="switchAuthTab('register')">회원가입</button>
+          <button class="auth-tab-btn" id="tabResetPw" onclick="switchAuthTab('resetPw')">비밀번호 찾기</button>
+        </div>
+        <div class="comm-close-btn" onclick="closeAuthModalDirect()">✕</div>
+      </div>
+
+      <!-- 로그인 폼 -->
+      <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+        <input type="text" id="loginId" placeholder="아이디" required>
+        <div class="pw-container">
+          <input type="password" id="loginPw" placeholder="비밀번호" required>
+          <button type="button" class="pw-toggle-btn" onclick="togglePasswordVisibility('loginPw', this)">👁️</button>
+        </div>
+        <button type="submit" class="auth-submit-btn">로그인</button>
+      </form>
+
+      <!-- 회원가입 폼 -->
+      <form id="registerForm" class="auth-form" style="display: none;" onsubmit="handleRegister(event)">
+        <select id="regRole" onchange="handleRoleChange(this.value)" required>
+          <option value="재학생">재학생</option>
+          <option value="졸업생">졸업생</option>
+          <option value="선생님">선생님</option>
+          <option value="회장">회장</option>
+          <option value="부회장">부회장</option>
+        </select>
+        
+        <input type="text" id="regStudentId" placeholder="학번 (예: 10101)" required>
+        <input type="text" id="regName" placeholder="이름 (예: 홍길동)" required>
+        <input type="text" id="regId" placeholder="아이디" required>
+        
+        <div class="pw-container">
+          <input type="password" id="regPw" placeholder="비밀번호" required>
+          <button type="button" class="pw-toggle-btn" onclick="togglePasswordVisibility('regPw', this)">👁️</button>
+        </div>
+
+        <input type="password" id="regAuthCode" placeholder="임원 인증코드 입력" style="display: none;">
+
+        <button type="submit" class="auth-submit-btn">가입하기</button>
+      </form>
+
+      <!-- 비밀번호 재설정 폼 -->
+      <form id="resetPwForm" class="auth-form" style="display: none;" onsubmit="handleResetPassword(event)">
+        <p class="reset-desc">가입 시 입력한 학번과 이름을 입력하세요.<br>(선생님의 경우 학번란에 '교사' 입력)</p>
+        <input type="text" id="resetStudentId" placeholder="학번 (예: 10101 또는 교사)" required>
+        <input type="text" id="resetName" placeholder="이름" required>
+        <input type="text" id="resetId" placeholder="아이디" required>
+        
+        <div class="pw-container">
+          <input type="password" id="resetNewPw" placeholder="새로운 비밀번호" required>
+          <button type="button" class="pw-toggle-btn" onclick="togglePasswordVisibility('resetNewPw', this)">👁️</button>
+        </div>
+
+        <button type="submit" class="auth-submit-btn">비밀번호 재설정</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 모던 커뮤니티 게시판 모달 -->
+  <div class="comm-overlay" id="commModalOverlay" onclick="closeCommunityModal(event)">
+    <div class="comm-window">
+      
+      <div class="comm-header">
+        <div class="comm-title">
+          <h2>코딩랩 커뮤니티 <span>학생 소통 & Q&A 공간</span></h2>
+        </div>
+        <button class="comm-write-btn" onclick="openWriteForm()">+ 새 글 쓰기</button>
+        <div class="comm-close-btn" onclick="closeCommunityModalDirect()">✕</div>
+      </div>
+
+      <div class="comm-toolbar">
+        <div class="comm-tabs">
+          <button class="tab-btn active" onclick="filterCategory('전체글', this)">전체글</button>
+          <button class="tab-btn" onclick="filterCategory('질문 & 답변', this)">질문 & 답변</button>
+          <button class="tab-btn" onclick="filterCategory('자유게시판', this)">자유게시판</button>
+          <button class="tab-btn" onclick="filterCategory('공지사항', this)">공지사항</button>
+        </div>
+        <div class="comm-search">
+          <input type="text" id="searchInput" placeholder="게시글 검색..." onkeyup="handleSearch()">
+        </div>
+      </div>
+
+      <div class="comm-body">
+        <div class="write-form-container" id="writeFormContainer" style="display: none;">
+          <h3>새 게시글 작성</h3>
+          <div class="form-row">
+            <select id="postCategory">
+              <option value="질문 & 답변">질문 & 답변</option>
+              <option value="자유게시판">자유게시판</option>
+              <option value="공지사항" id="optNotice">공지사항 (임원/선생님 전용)</option>
+            </select>
+            <input type="text" id="postAuthor" placeholder="작성자 이름">
+          </div>
+          <input type="text" id="postTitle" placeholder="제목을 입력하세요">
+          <textarea id="postContent" placeholder="내용을 작성하세요..." rows="4"></textarea>
+          <div class="form-actions">
+            <button class="btn-cancel" onclick="closeWriteForm()">취소</button>
+            <button class="btn-submit" onclick="submitPost()">등록하기</button>
+          </div>
+        </div>
+
+        <div class="post-list" id="postList">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+ <footer>
+    &copy; 2026 하남고등학교 코딩랩 (VAR CODINGLAB). All rights reserved.
+  </footer>
+
+ <!-- Firebase SDK 모듈 및 실시간 연동 스크립트 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword, 
+      sendPasswordResetEmail,
+      signOut, 
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      doc, 
+      setDoc, 
+      getDoc,
+      updateDoc,
+      increment,
+      collection,
+      addDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      deleteDoc,
+      arrayUnion,
+      arrayRemove
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD3yvaSG5KSHt6uVrhBKX3xrbfnkIvAs8o",
+      authDomain: "hanam-community.firebaseapp.com",
+      projectId: "hanam-community",
+      storageBucket: "hanam-community.firebasestorage.app",
+      messagingSenderId: "25255639121",
+      appId: "1:25255639121:web:baf0b96acd8086d3b85cf0",
+      measurementId: "G-J4T4WC6PZ3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUserData = null;
+    let allPosts = [];
+    let currentCategoryFilter = '전체글';
+    let editingPostId = null;
+
+    function formatEmail(id) {
+      if (id.includes('@')) return id;
+      return `${id.trim()}@hanam.hs`;
+    }
+
+    /* 회원가입 & 로그인 기능 */
+    window.handleRegister = async function(e) {
+      e.preventDefault();
+      const role = document.getElementById('regRole').value;
+      const studentId = document.getElementById('regStudentId').value.trim();
+      const name = document.getElementById('regName').value.trim();
+      const rawId = document.getElementById('regId').value.trim();
+      const pw = document.getElementById('regPw').value.trim();
+      const authCode = document.getElementById('regAuthCode').value.trim();
+
+      if ((role === '회장' || role === '부회장') && authCode !== '1234') {
+        alert('임원 인증코드가 올바르지 않습니다.');
+        return;
+      }
+
+      const email = formatEmail(rawId);
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pw);
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          uid: userCredential.user.uid,
+          userId: rawId,
+          email: email,
+          name: name,
+          studentId: role === '선생님' ? '교사' : studentId,
+          role: role,
+          createdAt: new Date()
+        });
+        alert(`[${role}] 회원가입이 완료되었습니다!`);
+        closeAuthModalDirect();
+      } catch (error) {
+        alert('회원가입 실패: ' + error.message);
+      }
+    };
+
+    window.handleLogin = async function(e) {
+      e.preventDefault();
+      const rawId = document.getElementById('loginId').value.trim();
+      const pw = document.getElementById('loginPw').value.trim();
+      try {
+        await signInWithEmailAndPassword(auth, formatEmail(rawId), pw);
+        alert('로그인되었습니다!');
+        closeAuthModalDirect();
+      } catch (error) {
+        alert('로그인 실패: 아이디 또는 비밀번호를 확인해주세요.');
+      }
+    };
+
+    window.handleResetPw = async function(e) {
+      e.preventDefault();
+      const rawId = document.getElementById('resetPwId').value.trim();
+      if (!rawId) return alert('아이디를 입력해 주세요.');
+      try {
+        await sendPasswordResetEmail(auth, formatEmail(rawId));
+        alert('비밀번호 재설정 링크를 발송했습니다.');
+        closeAuthModalDirect();
+      } catch (error) {
+        alert('발송 실패: 존재하지 않는 아이디입니다.');
+      }
+    };
+
+    window.handleLogout = async function() {
+      await signOut(auth);
+      alert("로그아웃 되었습니다.");
+    };
+
+    onAuthStateChanged(auth, async (user) => {
+      const container = document.getElementById('authBtnContainer');
+      if (user) {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        currentUserData = userDoc.exists() ? userDoc.data() : { name: "사용자", role: "재학생", studentId: "" };
+        const studentText = currentUserData.role === '선생님' ? '' : `${currentUserData.studentId} `;
+        if (container) {
+          container.innerHTML = `
+            <span style="color:#f8fafc; font-weight:600; font-size:0.9rem; margin-right:8px;">
+              ${escapeHtml(studentText)}${escapeHtml(currentUserData.name)} [${currentUserData.role}]
+            </span>
+            <button class="btn-secondary" onclick="handleLogout()">로그아웃</button>
+            <a href="https://forms.gle/bCVMY32vRqVYHYAZ7" target="_blank" class="btn-primary">지원하기</a>
+          `;
+        }
+      } else {
+        currentUserData = null;
+        if (container) {
+          container.innerHTML = `
+            <button class="btn-secondary" onclick="openAuthModal('login')">로그인 / 회원가입</button>
+            <a href="https://forms.gle/bCVMY32vRqVYHYAZ7" target="_blank" class="btn-primary">지원하기</a>
+          `;
+        }
+      }
+    });
+
+    /* 게시글 실시간 수신 */
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      allPosts = [];
+      snapshot.forEach((docSnap) => {
+        allPosts.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      renderPosts();
+    });
+
+    /* 게시글 작성/수정 모달 */
+    window.openWriteForm = function() {
+      if (!auth.currentUser || !currentUserData) {
+        alert('로그인 후 이용할 수 있습니다.');
+        openAuthModal('login');
+        return;
+      }
+      editingPostId = null;
+      document.getElementById('writeFormContainer').style.display = 'block';
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postContent').value = '';
+      const displayId = currentUserData.role === '선생님' ? '' : `${currentUserData.studentId} `;
+      document.getElementById('postAuthor').value = `${displayId}${currentUserData.name} (${currentUserData.role})`;
+    };
+
+    /* [기능 1] 게시글 수정 폼 열기 */
+    window.openEditForm = function(postId) {
+      const post = allPosts.find(p => p.id === postId);
+      if (!post) return;
+      editingPostId = postId;
+      document.getElementById('writeFormContainer').style.display = 'block';
+      document.getElementById('postCategory').value = post.category || '기타';
+      document.getElementById('postTitle').value = post.title || '';
+      document.getElementById('postContent').value = post.content || '';
+      document.getElementById('postAuthor').value = post.author || '';
+    };
+
+    /* 게시글 제출 (신규 저장 or 수정) */
+    window.submitPost = async function() {
+      if (!auth.currentUser || !currentUserData) return;
+
+      const category = document.getElementById('postCategory').value;
+      const author = document.getElementById('postAuthor').value.trim() || '익명';
+      const title = document.getElementById('postTitle').value.trim();
+      const content = document.getElementById('postContent').value.trim();
+
+      if (!title || !content) return alert('제목과 내용을 입력해 주세요!');
+
+      try {
+        if (editingPostId) {
+          /* 글 수정 */
+          await updateDoc(doc(db, "posts", editingPostId), {
+            category, title, content
+          });
+          editingPostId = null;
+        } else {
+          /* 글 신규 작성 */
+          await addDoc(collection(db, "posts"), {
+            category, author, title, content,
+            uid: auth.currentUser.uid,
+            views: 0, likes: [], comments: [],
+            createdAt: new Date(),
+            dateStr: new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' })
+          });
+        }
+        closeWriteForm();
+      } catch (error) {
+        alert("게시글 처리 실패: " + error.message);
+      }
+    };
+
+    window.deletePost = async function(postId, postUid) {
+      if (!auth.currentUser) return;
+      if (auth.currentUser.uid !== postUid && currentUserData?.role !== '선생님' && currentUserData?.role !== '회장') {
+        return alert('삭제 권한이 없습니다.');
+      }
+      if (confirm('정말로 삭제하시겠습니까?')) {
+        await deleteDoc(doc(db, "posts", postId));
+      }
+    };
+
+    /* [기능 1] 댓글 삭제 */
+    window.deleteComment = async function(postId, commentObj) {
+      if (!auth.currentUser) return;
+      if (auth.currentUser.uid !== commentObj.uid && currentUserData?.role !== '선생님' && currentUserData?.role !== '회장') {
+        return alert('댓글 삭제 권한이 없습니다.');
+      }
+      if (confirm('댓글을 삭제하시겠습니까?')) {
+        const postRef = doc(db, "posts", postId);
+        await updateDoc(postRef, {
+          comments: arrayRemove(commentObj)
+        });
+      }
+    };
+
+    window.toggleLike = async function(postId) {
+      if (!auth.currentUser) return alert('로그인이 필요합니다.');
+      const postRef = doc(db, "posts", postId);
+      const postSnap = await getDoc(postRef);
+      if (!postSnap.exists()) return;
+
+      const likes = postSnap.data().likes || [];
+      const myUid = auth.currentUser.uid;
+
+      if (likes.includes(myUid)) {
+        await updateDoc(postRef, { likes: arrayRemove(myUid) });
+      } else {
+        await updateDoc(postRef, { likes: arrayUnion(myUid) });
+      }
+    };
+
+    window.increaseView = async function(postId) {
+      await updateDoc(doc(db, "posts", postId), { views: increment(1) });
+    };
+
+    window.addComment = async function(postId) {
+      if (!auth.currentUser || !currentUserData) return alert('로그인이 필요합니다.');
+      const input = document.getElementById(`commentInput-${postId}`);
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      const displayId = currentUserData.role === '선생님' ? '' : `${currentUserData.studentId} `;
+      const commentObj = {
+        author: `${displayId}${currentUserData.name}`,
+        content: text,
+        uid: auth.currentUser.uid,
+        createdAt: new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+      };
+
+      await updateDoc(doc(db, "posts", postId), {
+        comments: arrayUnion(commentObj)
+      });
+      input.value = '';
+    };
+
+    window.filterCategory = function(catName, btnElement) {
+      currentCategoryFilter = catName;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+      renderPosts();
+    };
+
+    window.handleSearch = function() { renderPosts(); };
+
+    /* 게시글 화면 출력 (BEST 인기글 연동) */
+    window.renderPosts = function() {
+      const postList = document.getElementById('postList');
+      if (!postList) return;
+
+      const searchInput = document.getElementById('searchInput');
+      const searchKeyword = searchInput ? searchInput.value.toLowerCase() : '';
+      postList.innerHTML = '';
+
+      /* [기능 3] BEST 인기글 선정 (좋아요 1개 이상 또는 조회수 5회 이상 중 상위 2개) */
+      const bestPosts = [...allPosts]
+        .filter(p => (p.likes && p.likes.length >= 1) || (p.views && p.views >= 5))
+        .sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0) || (b.views || 0) - (a.views || 0))
+        .slice(0, 2);
+
+      if (bestPosts.length > 0 && currentCategoryFilter === '전체글' && !searchKeyword) {
+        const bestSection = document.createElement('div');
+        bestSection.style.cssText = "margin-bottom: 20px; padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 8px;";
+        bestSection.innerHTML = `<strong style="color:#f59e0b; font-size:0.95rem;">🔥 실시간 BEST 인기글</strong>`;
+        
+        bestPosts.forEach(post => {
+          const item = document.createElement('div');
+          item.style.cssText = "margin-top:8px; cursor:pointer; font-size:0.85rem; color:#f8fafc;";
+          item.onclick = () => window.increaseView(post.id);
+          item.innerHTML = `🏆 <strong>[${escapeHtml(post.category)}]</strong> ${escapeHtml(post.title)} <span style="color:#f59e0b;">(👍 ${post.likes?.length || 0})</span>`;
+          bestSection.appendChild(item);
+        });
+        postList.appendChild(bestSection);
+      }
+
+      let filtered = allPosts.filter(post => {
+        const matchCat = (currentCategoryFilter === '전체글') || (post.category === currentCategoryFilter);
+        const matchSearch = (post.title || '').toLowerCase().includes(searchKeyword) || (post.content || '').toLowerCase().includes(searchKeyword);
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        postList.innerHTML += `<div class="empty-msg">등록된 게시글이 없습니다.</div>`;
+        return;
+      }
+
+      filtered.forEach(post => {
+        const badgeClass = (post.category || '기타').replace('&', '').replace(' ', '-');
+        const isMyPost = auth.currentUser && (auth.currentUser.uid === post.uid || currentUserData?.role === '선생님' || currentUserData?.role === '회장');
+        const likesArr = post.likes || [];
+        const commentsArr = post.comments || [];
+        const isLiked = auth.currentUser && likesArr.includes(auth.currentUser.uid);
+
+        const card = document.createElement('div');
+        card.className = 'post-card';
+        card.onclick = () => window.increaseView(post.id);
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="post-badge ${badgeClass}">${escapeHtml(post.category)}</div>
+            ${isMyPost ? `
+              <div>
+                <button onclick="event.stopPropagation(); openEditForm('${post.id}')" style="background:none; border:none; color:#3b82f6; cursor:pointer; font-size:0.8rem; margin-right:8px;">수정</button>
+                <button onclick="event.stopPropagation(); deletePost('${post.id}', '${post.uid}')" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:0.8rem;">삭제</button>
+              </div>
+            ` : ''}
+          </div>
+          <div class="post-main">
+            <div class="post-title">${escapeHtml(post.title)}</div>
+            <div class="post-preview">${escapeHtml(post.content)}</div>
+            <div class="post-meta">
+              <span>${escapeHtml(post.author)}</span> • <span>${post.dateStr || ''}</span> • <span>조회수 ${post.views || 0}</span>
+            </div>
+            
+            <div style="margin-top:12px; display:flex; gap:12px; font-size:0.85rem; color:#94a3b8;">
+              <button onclick="event.stopPropagation(); toggleLike('${post.id}')" style="background:none; border:none; color:${isLiked ? '#f59e0b' : '#94a3b8'}; cursor:pointer; font-weight:600;">
+                👍 좋아요 ${likesArr.length}
+              </button>
+              <span>💬 댓글 ${commentsArr.length}</span>
+            </div>
+
+            <!-- 댓글 목록 및 삭제 기능 연동 -->
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid #334155;" onclick="event.stopPropagation();">
+              <div class="comments-list" style="margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
+                ${commentsArr.map(c => {
+                  const isMyComment = auth.currentUser && (auth.currentUser.uid === c.uid || currentUserData?.role === '선생님' || currentUserData?.role === '회장');
+                  return `
+                    <div style="font-size:0.8rem; background:#1e293b; padding:6px 10px; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                      <div>
+                        <strong style="color:#e2e8f0;">${escapeHtml(c.author)}:</strong> <span style="color:#cbd5e1;">${escapeHtml(c.content)}</span>
+                      </div>
+                      ${isMyComment ? `<button onclick="deleteComment('${post.id}', ${JSON.stringify(c).replace(/"/g, '&quot;')})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:0.75rem; margin-left:8px;">x</button>` : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+              <div style="display:flex; gap:6px;">
+                <input type="text" id="commentInput-${post.id}" placeholder="댓글을 입력하세요..." style="flex:1; padding:6px 10px; font-size:0.8rem; border-radius:4px; border:1px solid #475569; background:#0f172a; color:#fff;">
+                <button onclick="addComment('${post.id}')" style="padding:6px 12px; font-size:0.8rem; background:#f59e0b; color:#fff; border:none; border-radius:4px; cursor:pointer;">등록</button>
+              </div>
+            </div>
+          </div>
+        `;
+        postList.appendChild(card);
+      });
+    };
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
